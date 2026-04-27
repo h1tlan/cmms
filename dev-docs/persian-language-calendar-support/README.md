@@ -3,6 +3,10 @@
 Use this directory for Markdown documentation related to adding Persian language and
 calendar support.
 
+Start with:
+
+- [Implementation guide](./implementation-guide.md)
+
 Suggested docs to keep here:
 
 - requirements and scope notes
