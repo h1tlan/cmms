@@ -313,14 +313,68 @@ KEYGEN_PUBLIC_KEY=...
 Keep a safe default if this is a single-vendor product, but allow override for
 forks, staging, or key rotation.
 
-### Bypass resistance in open source
+### Source visibility, runtime images, and bypass resistance
 
-Because the code is open source, a fork can remove license checks.
+The licensing implementation is visible in this repository.
 
-That is not a technical failure. It is the reality of open-source commercial
-licensing.
+Examples:
 
-In this model, protection comes from:
+- `api/src/main/java/com/grash/service/LicenseService.java`
+- `api/src/main/java/com/grash/utils/LicenseFileValidator.java`
+- `api/src/main/java/com/grash/service/KeygenService.java`
+- `api/src/main/java/com/grash/service/RoleService.java`
+- `api/src/main/java/com/grash/dto/license/LicenseEntitlement.java`
+
+For example, custom role creation checks `LicenseEntitlement.CUSTOM_ROLES` in
+`RoleService`.
+
+So, if someone builds their own fork from this source, they can technically
+modify or remove those checks. That statement is about the public source code in
+this repository.
+
+However, that is not exactly the same as saying the official Docker runtime has
+no closed or vendor-controlled parts. The root `docker-compose.yml` runs prebuilt
+images:
+
+```yaml
+api:
+  image: intelloop/atlas-cmms-backend
+
+frontend:
+  image: intelloop/atlas-cmms-frontend
+```
+
+Those images are artifacts produced by the vendor. This repository strongly
+suggests the licensing code is part of the public backend source, and the
+commercial license says the source code is publicly available under AGPLv3. But
+from the repository alone, you should not blindly assume every official image is
+bit-for-bit reproducible from the public source unless you verify the image
+build process.
+
+There are three different cases:
+
+| Case | What it means |
+| --- | --- |
+| Build from this repository source | Licensing checks are visible and can be changed in a fork, subject to legal obligations. |
+| Run official Docker images | Runtime behavior depends on what is inside those images; likely aligned with source, but should be verified if this matters. |
+| Vendor provides extra non-public activation material | License keys, activation mechanisms, private docs, or unreleased features may be non-public even if main source is public. |
+
+The commercial license itself acknowledges this split:
+
+- source code is publicly available under AGPLv3
+- non-public information may include license keys, activation mechanisms,
+  private documentation, and unreleased features
+
+If you need high confidence that the runtime exactly matches the public source,
+verify one of these:
+
+1. The project publishes Dockerfiles and CI build instructions for the images.
+2. The image labels or SBOM point to a commit SHA.
+3. You can build the image locally from this repository and reproduce behavior.
+4. The vendor documents which parts, if any, are not in the public repository.
+
+For an open-source commercial product, protection should not depend only on
+source secrecy. In practice, protection comes from:
 
 - legal license terms
 - commercial support
@@ -328,9 +382,10 @@ In this model, protection comes from:
 - hosted services
 - customer trust
 - compliance requirements
+- official license issuance and activation infrastructure
 
-Do not rely on source secrecy. Rely on server-side checks, contracts, and a
-valuable commercial relationship.
+Do not rely on frontend checks or hidden code alone. Rely on backend enforcement,
+clear contracts, and a valuable commercial relationship.
 
 ## Maintainability assessment
 
