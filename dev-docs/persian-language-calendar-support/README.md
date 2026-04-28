@@ -6,6 +6,8 @@ calendar support.
 Start with:
 
 - [Implementation guide](./implementation-guide.md)
+- [Backend guide](./backend-guide.md)
+- [Frontend guide](./frontend-guide.md)
 
 Suggested docs to keep here:
 
