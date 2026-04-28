@@ -9,6 +9,7 @@ Start with:
 - [Backend guide](./backend-guide.md)
 - [Backend architecture assessment](./backend-architecture-assessment.md)
 - [Frontend guide](./frontend-guide.md)
+- [Frontend architecture assessment](./frontend-architecture-assessment.md)
 
 Suggested docs to keep here:
 
