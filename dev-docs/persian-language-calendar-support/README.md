@@ -7,6 +7,7 @@ Start with:
 
 - [Implementation guide](./implementation-guide.md)
 - [Backend guide](./backend-guide.md)
+- [Backend architecture assessment](./backend-architecture-assessment.md)
 - [Frontend guide](./frontend-guide.md)
 
 Suggested docs to keep here:
