@@ -5,6 +5,7 @@ calendar support.
 
 Start with:
 
+- [Development environment setup](./development-environment-setup.md)
 - [Implementation guide](./implementation-guide.md)
 - [Backend guide](./backend-guide.md)
 - [Backend architecture assessment](./backend-architecture-assessment.md)
