@@ -3,7 +3,6 @@ package com.grash.service;
 import com.grash.dto.WorkOrderMeterTriggerPatchDTO;
 import com.grash.dto.WorkOrderMeterTriggerPostDTO;
 import com.grash.dto.cutomField.CustomFieldValuePostDTO;
-import com.grash.dto.license.LicenseEntitlement;
 import com.grash.exception.CustomException;
 import com.grash.mapper.WorkOrderMeterTriggerMapper;
 import com.grash.model.*;
@@ -29,14 +28,10 @@ public class WorkOrderMeterTriggerService {
     private final WorkOrderMeterTriggerMapper workOrderMeterTriggerMapper;
     private final MeterService meterService;
     private final EntityManager em;
-    private final LicenseService licenseService;
     private final CustomFieldValueService customFieldValueService;
 
     @Transactional
     public WorkOrderMeterTrigger create(WorkOrderMeterTrigger workOrderMeterTrigger, Company company) {
-        if (!licenseService.hasEntitlement(LicenseEntitlement.CONDITION_BASED_PM))
-            throw new CustomException("You need a license to create a meter trigger", HttpStatus.FORBIDDEN);
-
         if (workOrderMeterTrigger instanceof WorkOrderMeterTriggerPostDTO workOrderMeterTriggerPostDTO) {
             workOrderMeterTrigger = workOrderMeterTriggerMapper.fromPostDto(workOrderMeterTriggerPostDTO);
             if (!workOrderMeterTriggerPostDTO.getCustomFields().isEmpty()) {
